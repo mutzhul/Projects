@@ -1,0 +1,449 @@
+
+<center>
+	<button class="chart-interval" data-type="daily"> Daily </button>
+	<button  class="chart-interval" data-type="week"> 1 Week </button>
+	<button class="chart-interval" data-type="month"> 1 Month </button>
+
+
+<canvas id="myChart" width="100" height="40" ></canvas>
+<div class="loading"><img src="giphy.gif"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+				var data_init = '';
+			var labels_init = [];
+			var dataset_init = [];
+			var chart_type = '';
+			var chart_type_function = '';
+
+			$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=60min&apikey=V3K2XZ5HT2TQ2SL7&symbol=UBER", function( data ) {
+	 // $( ".result" ).html( data );
+	  //console.log(data);
+	  data_init = data;//alert( "Load was performed." );
+	  data_item = '';
+	  $.each(data_init, function(i, item) {
+		   //console.log(item);
+		   data_item = item;
+		});
+	  	var temp = {};
+	  	var k = 1;
+		 $.each(data_item, function(i, item) {
+		 	labels_init.push(i);
+		 	temp.data = item['4. close'];
+		 	//temp.order = k;
+		 	//temp.type = 'line';
+		 	dataset_init.push(item['4. close']);
+		 	k++;
+		 	
+		});
+		labels_init.reverse();
+		dataset_init.reverse();
+
+		/*-*/
+		var canvas = document.getElementById('myChart');
+				canvas.width  = 2;
+				canvas.height = 1;
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var mixedChart = new Chart(ctx, {
+			    type: 'line',
+			   	data: {
+				        labels: labels_init,
+				        datasets: [{
+				            label: 'My First dataset',
+				            backgroundColor: 'rgb(255, 99, 132)',
+				            borderColor: 'rgb(255, 99, 132)',
+				            data: dataset_init,
+				        }]
+				    },
+			    options: {}
+			});
+			$(".loading").hide();		
+		/*sasas*/
+	});
+
+
+		$(".chart-interval").on('click',function(){
+			
+			var data_init = '';
+			var labels_init = [];
+			var dataset_init = [];
+			var chart_type = '';
+			var chart_type_function = '';
+			 chart_type = $(this).data('type');
+			if( chart_type  == "daily" ){
+				$('.loading').show();
+				$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=60min&apikey=V3K2XZ5HT2TQ2SL7&symbol=UBER", function( data ) {
+	 // $( ".result" ).html( data );
+	  //console.log(data);
+	  data_init = data;//alert( "Load was performed." );
+	  data_item = '';
+	  $.each(data_init, function(i, item) {
+		   //console.log(item);
+		   data_item = item;
+		});
+	  	var temp = {};
+	  	var k = 1;
+		 $.each(data_item, function(i, item) {
+		 	labels_init.push(i);
+		 	temp.data = item['4. close'];
+		 	//temp.order = k;
+		 	//temp.type = 'line';
+		 	dataset_init.push(item['4. close']);
+		 	k++;
+		 	
+		});
+		labels_init.reverse();
+		dataset_init.reverse();
+
+
+
+		/*-*/
+		var canvas = document.getElementById('myChart');
+				canvas.width  = 2;
+				canvas.height = 1;
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var mixedChart = new Chart(ctx, {
+			    type: 'line',
+			   data: {
+				        labels: labels_init,
+				        datasets: [{
+				            label: 'My First dataset',
+				            backgroundColor: 'rgb(255, 99, 132)',
+				            borderColor: 'rgb(255, 99, 132)',
+				            data: dataset_init,
+				        }]
+				    },
+			    options: {}
+			});
+		/*sasas*/
+	});
+	$('.loading').hide();
+			}else if( chart_type  == "week" ){
+				$('.loading').show();
+				var data_init = '';
+			var labels_init = [];
+			var dataset_init = [];
+			var chart_type = '';
+			var chart_type_function = '';
+				$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=MSFT&apikey=V3K2XZ5HT2TQ2SL7&symbol=UBER", function( data ) {
+	 // $( ".result" ).html( data );
+	  //console.log(data);
+	  data_init = data;//alert( "Load was performed." );
+	  data_item = '';
+	  $.each(data_init, function(i, item) {
+		   //console.log(item);
+		   data_item = item;
+		});
+	  	var temp = {};
+	  	var k = 1;
+		 $.each(data_item, function(i, item) {
+		 	labels_init.push(i);
+		 	temp.data = item['4. close'];
+		 	//temp.order = k;
+		 	//temp.type = 'line';
+		 	dataset_init.push(item['4. close']);
+		 	k++;
+		 	
+		});
+		labels_init.reverse();
+		dataset_init.reverse();
+
+
+
+		/*-*/
+		var canvas = document.getElementById('myChart');
+				canvas.width  = 2;
+				canvas.height = 1;
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var mixedChart = new Chart(ctx, {
+			    type: 'line',
+			   data: {
+				        labels: labels_init,
+				        datasets: [{
+				            label: 'My First dataset',
+				            backgroundColor: 'rgb(255, 99, 132)',
+				            borderColor: 'rgb(255, 99, 132)',
+				            data: dataset_init,
+				        }]
+				    },
+			    options: {}
+			});
+		/*sasas*/
+	});
+				$('.loading').hide();
+			}else if( chart_type  == "month" ){
+				var data_init = '';
+			var labels_init = [];
+			var dataset_init = [];
+			var chart_type = '';
+			var chart_type_function = '';
+				$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=V3K2XZ5HT2TQ2SL7&symbol=UBER", function( data ) {
+	 // $( ".result" ).html( data );
+	  //console.log(data);
+	  data_init = data;//alert( "Load was performed." );
+	  data_item = '';
+	  $.each(data_init, function(i, item) {
+		   //console.log(item);
+		   data_item = item;
+		});
+	  	var temp = {};
+	  	var k = 1;
+		 $.each(data_item, function(i, item) {
+		 	labels_init.push(i);
+		 	temp.data = item['4. close'];
+		 	//temp.order = k;
+		 	//temp.type = 'line';
+		 	dataset_init.push(item['4. close']);
+		 	k++;
+		 	
+		});
+		labels_init.reverse();
+		dataset_init.reverse();
+
+
+		/*-*/
+		var canvas = document.getElementById('myChart');
+				canvas.width  = 2;
+				canvas.height = 1;
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var mixedChart = new Chart(ctx, {
+			    type: 'line',
+			   data: {
+				        labels: labels_init,
+				        datasets: [{
+				            label: 'My First dataset',
+				            backgroundColor: 'rgb(255, 99, 132)',
+				            borderColor: 'rgb(255, 99, 132)',
+				            data: dataset_init
+				        }]
+				    },
+			    options: {}
+			});
+		/*sasas*/
+	});
+			}else if( chart_type  == "year" ){
+				var data_init = '';
+			var labels_init = [];
+			var dataset_init = [];
+			var chart_type = '';
+			var chart_type_function = '';
+				$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=60min&apikey=V3K2XZ5HT2TQ2SL7&symbol=UBER", function( data ) {
+	 // $( ".result" ).html( data );
+	  //console.log(data);
+	  data_init = data;//alert( "Load was performed." );
+	  data_item = '';
+	  $.each(data_init, function(i, item) {
+		   //console.log(item);
+		   data_item = item;
+		});
+	  	var temp = {};
+	  	var k = 1;
+		 $.each(data_item, function(i, item) {
+		 	labels_init.push(i);
+		 	temp.data = item['4. close'];
+		 	//temp.order = k;
+		 	//temp.type = 'line';
+		 	dataset_init.push(item['4. close']);
+		 	k++;
+		 	
+		});
+		labels_init.reverse();
+		dataset_init.reverse();
+
+
+		/*-*/
+		var canvas = document.getElementById('myChart');
+				canvas.width  = 2;
+				canvas.height = 1;
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var mixedChart = new Chart(ctx, {
+			    type: 'line',
+			   data: {
+				        labels: labels_init,
+				        datasets: [{
+				            label: 'My First dataset',
+				            backgroundColor: 'rgb(255, 99, 132)',
+				            borderColor: 'rgb(255, 99, 132)',
+				            data: dataset_init
+				        }]
+				    },
+			    options: {}
+			});
+		/*sasas*/
+	});
+			} 
+		});
+	});
+
+	
+</script>
+<script type="text/javascript">
+
+	
+
+
+</script>
+<style type="text/css">
+	canvas { background:#fff; border:1px solid #ccc;  width:800px !important;
+  height:500px !important; margin-top: 50px;}
+  #content-append{
+  	margin-top: 50px;	
+  }
+  .loading{
+  	position: absolute;
+  	width: 98%;
+  	height: 100%;
+  	top: 30%;
+
+  }
+</style>
+<script type="text/javascript">
+
+
+	
+
+
+</script>
+<div class="content-append">
+
+	<form>
+		<input type="text" required="required" placeholder="Company Name" name="company_name" id="company_name">
+		<input type="submit" value="Add" id="submit-btn"  name="">
+	</form>
+</div>
+</center>
+<script type="text/javascript">
+	var append_id = 0;
+	var company_name = '';
+	$('form').on('submit', function (e) {
+		e.preventDefault();
+		company_name = $('#company_name').val();
+		// body...
+		append_id++;
+		$( ".content-append" ).append( '<div id="append-buttons"><button class="chart-interval" data-type="daily" data-canvas-id="myChart_'+append_id+'"> Daily </button><button  class="chart-interval" data-type="week"  data-canvas-id="myChart_'+append_id+'"> 1 Week </button><button class="chart-interval" data-type="month"  data-canvas-id="myChart_'+append_id+'"> 1 Month </button></div><canvas class="myChart_append" id="myChart_'+append_id+'" width="100" height="40" ></canvas>' );	
+			var data_init = '';
+			var labels_init = [];
+			var dataset_init = [];
+			var chart_type = '';
+			var chart_type_function = '';
+			
+			$.get( "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=60min&apikey=V3K2XZ5HT2TQ2SL7&symbol="+company_name, function( data ) {
+	 // $( ".result" ).html( data );
+	  //console.log(data);
+	  data_init = data;//alert( "Load was performed." );
+	  data_item = '';
+	  $.each(data_init, function(i, item) {
+		   //console.log(item);
+		   data_item = item;
+		});
+	  	var temp = {};
+	  	var k = 1;
+		 $.each(data_item, function(i, item) {
+		 	labels_init.push(i);
+		 	temp.data = item['4. close'];
+		 	//temp.order = k;
+		 	//temp.type = 'line';
+		 	dataset_init.push(item['4. close']);
+		 	k++;
+		 	
+		});
+		labels_init.reverse();
+		dataset_init.reverse();
+
+
+
+		/*-*/
+		var canvas = document.getElementById('myChart_'+append_id);
+				canvas.width  = 2;
+				canvas.height = 1;
+				var ctx = document.getElementById('myChart_'+append_id).getContext('2d');
+				var mixedChart = new Chart(ctx, {
+			    type: 'line',
+			   data: {
+				        labels: labels_init,
+				        datasets: [{
+				            label: company_name,
+				            backgroundColor: 'rgb(255, 99, 132)',
+				            borderColor: 'rgb(255, 99, 132)',
+				            data: dataset_init
+				        }]
+				    },
+			    options: {}
+			});
+		/*sasas*/
+	});
+
+
+	});
+	$('.content-append').on('click','.chart-interval',function(){
+		var canvas_id = $(this).data('canvas-id');
+		var  chart_type = $(this).data('type');
+		var data_init = '';
+		var labels_init = [];
+		var dataset_init = [];
+		var chart_type_function = '';
+		var url_get = '';
+		if( chart_type == "daily" ){
+			chart_type_function = "TIME_SERIES_INTRADAY";
+			url_get =  "https://www.alphavantage.co/query?function="+chart_type_function+"&interval=60min&apikey=V3K2XZ5HT2TQ2SL7&symbol="+company_name;
+		} else if( chart_type == "week" ){
+			chart_type_function = "TIME_SERIES_WEEKLY";
+			url_get =  "https://www.alphavantage.co/query?function="+chart_type_function+"&apikey=V3K2XZ5HT2TQ2SL7&symbol="+company_name;
+		} else if( chart_type == "month" ){
+			chart_type_function = "TIME_SERIES_MONTHLY";
+			url_get =  "https://www.alphavantage.co/query?function="+chart_type_function+"&apikey=V3K2XZ5HT2TQ2SL7&symbol="+company_name;
+		}
+		
+		
+		
+			$.get(url_get, function( data ) {
+		 // $( ".result" ).html( data );
+		  //console.log(data);
+		  data_init = data;//alert( "Load was performed." );
+		  data_item = '';
+		  $.each(data_init, function(i, item) {
+			   //console.log(item);
+			   data_item = item;
+			});
+		  	var temp = {};
+		  	var k = 1;
+			 $.each(data_item, function(i, item) {
+			 	labels_init.push(i);
+			 	temp.data = item['4. close'];
+			 	//temp.order = k;
+			 	//temp.type = 'line';
+			 	dataset_init.push(item['4. close']);
+			 	k++;
+			 	
+			});
+			labels_init.reverse();
+		dataset_init.reverse();
+
+
+
+			/*-*/
+			var canvas = document.getElementById(canvas_id);
+					canvas.width  = 2;
+					canvas.height = 1;
+					var ctx = document.getElementById(canvas_id).getContext('2d');
+					var mixedChart = new Chart(ctx, {
+				    type: 'line',
+				   data: {
+					        labels: labels_init,
+					        datasets: [{
+					            label: company_name,
+					            backgroundColor: 'rgb(255, 99, 132)',
+					            borderColor: 'rgb(255, 99, 132)',
+					            data: dataset_init
+					        }]
+					    },
+				    options: {}
+				});
+			/*sasas*/
+		});
+	});
+
+	
+</script>
